@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Content Editor | Smart Page-Turn Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="1.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div>
+            <div class="brand">
+                <div class="brand-logo">📖</div>
+                <div class="brand-text">
+                    <h2>PageTurn</h2>
+                    <span>Admin Studio</span>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link"><span>📁</span> Dashboard</a>
+                <a href="editor.html" class="nav-link active"><span>📝</span> Content Editor</a>
+                <a href="export.html" class="nav-link"><span>📦</span> Build Package</a>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+                <h1 class="page-title">Page & Sensor Matrix</h1>
+                <p class="page-desc" id="bookSubtitle">Configuring Book Data...</p>
+            </div>
+            <a href="export.html" class="btn">Proceed to Build ➔</a>
+        </header>
+
+        <div class="card-grid" id="editorGrid"></div>
+    </main>
+
+    <script src="1.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const config = getBookConfig();
+            document.getElementById('bookSubtitle').innerText = `Active Directory: ${config.title} (${config.totalPages} Pages)`;
+
+            const grid = document.getElementById('editorGrid');
+            for (let p = 1; p <= config.totalPages; p++) {
+                grid.innerHTML += `
+                    <div class="editor-card">
+                        <h3>Page ${p}</h3>
+                        <div class="form-group">
+                            <label>Chapter Audio (.mp3):</label>
+                            <input type="file" accept="audio/mp3" onchange="saveAudioTrack(${p}, event)">
+                        </div>
+                        <div class="form-group">
+                            <label>Lines Count:</label>
+                            <input type="number" value="3" id="lines-p${p}">
+                        </div>
+                        <div class="form-group">
+                            <label>Sensors Read Content:</label>
+                            <textarea rows="3" id="text-p${p}" placeholder="Enter text read out by sensors..."></textarea>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

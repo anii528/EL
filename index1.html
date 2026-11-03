@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Smart Page-Turn Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="1.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div>
+            <div class="brand">
+                <div class="brand-logo">📖</div>
+                <div class="brand-text">
+                    <h2>PageTurn</h2>
+                    <span>Admin Studio</span>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="index1.html" class="nav-link active"><span>📁</span> Dashboard</a>
+                <a href="1ed.html" class="nav-link"><span>📝</span> Content Editor</a>
+                <a href="1ex.html" class="nav-link"><span>📦</span> Build Package</a>
+            </nav>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">
+            Physical-to-Digital Sync Engine
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="page-header">
+            <h1 class="page-title">Book Directory Setup</h1>
+            <p class="page-desc">Step 1: Configure global metadata and timing baselines for physical Braille books.</p>
+        </header>
+
+        <form id="bookForm" class="glass-panel">
+            <h2 class="panel-title">📚 Global Book Configuration</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>MicroSD Directory Name (Book ID):</label>
+                    <input type="text" id="bookFolder" value="BRAILLE_BOOK_01" required>
+                </div>
+                <div class="form-group">
+                    <label>Base Line Duration (ms):</label>
+                    <input type="number" id="defaultLineTime" value="3000" required>
+                </div>
+                <div class="form-group">
+                    <label>Total Physical Pages:</label>
+                    <input type="number" id="pageCount" value="4" min="1" max="50" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-large" style="margin-top: 2rem;">Save & Launch Content Editor ➔</button>
+        </form>
+    </main>
+
+    <script src="1.js"></script>
+    <script>
+        document.getElementById('bookForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveBookConfig({
+                title: document.getElementById('bookFolder').value.trim().replace(/\s+/g, '_'),
+                lineTime: parseInt(document.getElementById('defaultLineTime').value),
+                totalPages: parseInt(document.getElementById('pageCount').value)
+            });
+            window.location.href = 'editor.html';
+        });
+    </script>
+</body>
+</html>
